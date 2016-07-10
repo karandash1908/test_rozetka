@@ -53,7 +53,7 @@ driver.findElement(By.linkText('Погружной')).click();
 driver.wait(until.titleIs(TitleTypeOfBlender),TimeOfLoading);
 driver.findElement(By.linkText('Блендер BRAUN MQ535 SAUCE')).click();
 driver.wait(until.titleContains("Блендер BRAUN"), TimeOfLoading);
-////////// 3.5
+
 driver.wait(until.titleIs(TitleOneBlender), TimeOfLoading);
 verifyValue('detail-title', 'Блендер BRAUN MQ535 SAUCE', 'The required goods have been found');
 verifyValue('detail-description', 'Тип: погружной. Мощность: 600 Вт. Кол-во скоростей: 2. Мини-измельчитель: есть.'+
