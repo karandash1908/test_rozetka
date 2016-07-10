@@ -13,6 +13,7 @@ function executeJS(script) {
     });
 }
 
+// bla bla bla
 function scrollUp(){
     executeJS("window.scrollTo(0,0);");
     driver.sleep(1000);
@@ -41,11 +42,8 @@ var TitleBlenders = 'Блендеры - Интернет магазин Rozetka.
 var TitleTypeOfBlender = 'Тип: погружной. Блендеры - Интернет магазин Rozetka.ua | Купить Блендеры в Киеве: цена, отзывы, продажа.';
 var TitleOneBlender = 'Rozetka.ua | Блендер BRAUN MQ535 SAUCE. Цена, купить Блендер BRAUN MQ535 SAUCE в Киеве, Харькове, Днепропетровске, Одессе, Запорожье, Львове. Блендер BRAUN MQ535 SAUCE: обзор, описание, продажа.';
 
-//////////  1
-
 driver.get('http://www.rozetka.com.ua');
 driver.wait(until.titleIs(TitleRozetka), TimeOfLoading);
-//////////  3
 
 driver.findElement(By.partialLinkText('Бытовая техника')).click();
 driver.wait(until.titleIs(TitleTechcnics),TimeOfLoading);
