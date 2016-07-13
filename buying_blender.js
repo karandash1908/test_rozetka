@@ -1,7 +1,7 @@
-var webdriver = require('..'),
+var webdriver = require('D:\\Kseniya\\Neww\\node_modules\\selenium-webdriver'),
     By = webdriver.By,
     until = webdriver.until,
-    chrome = require('../chrome');
+    chrome = require('D:\\Kseniya\\Neww\\node_modules\\selenium-webdriver\\chrome');
 
 var driver = new webdriver.Builder()
     .forBrowser('chrome')
