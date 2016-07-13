@@ -6,7 +6,7 @@ var webdriver = require('D:\\Kseniya\\Neww\\node_modules\\selenium-webdriver'),
 var driver = new webdriver.Builder()
     .forBrowser('chrome')
     .build();
-driver.manage().timeouts().implicitlyWait(7 * 1000);
+driver.manage().timeouts().implicitlyWait(TimeOfLoading);
 
 function executeJS(script) {
     driver.executeScript(script).then(function(return_value) {
@@ -16,7 +16,7 @@ function executeJS(script) {
 // this function scroll window to top
 function scrollUp(){
     executeJS("window.scrollTo(0,0);");
-    driver.sleep(1000);
+    driver.sleep(TimeOfLoading);
 }
 
 function verifyValue(className, textForCheck, message) {
@@ -42,9 +42,11 @@ var TitleBlenders = 'Блендеры - Интернет магазин Rozetka.
 var TitleTypeOfBlender = 'Тип: погружной. Блендеры - Интернет магазин Rozetka.ua | Купить Блендеры в Киеве: цена, отзывы, продажа.';
 var TitleOneBlender = 'Rozetka.ua | Блендер BRAUN MQ535 SAUCE. Цена, купить Блендер BRAUN MQ535 SAUCE в Киеве, Харькове, Днепропетровске, Одессе, Запорожье, Львове. Блендер BRAUN MQ535 SAUCE: обзор, описание, продажа.';
 
+// 1 Go to the site
 driver.get('http://www.rozetka.com.ua');
 driver.wait(until.titleIs(TitleRozetka), TimeOfLoading);
 
+// 3 Go to the page about blender
 driver.findElement(By.partialLinkText('Бытовая техника')).click();
 driver.wait(until.titleIs(TitleTechcnics),TimeOfLoading);
 driver.findElement(By.linkText('Блендеры')).click();
@@ -54,17 +56,20 @@ driver.wait(until.titleIs(TitleTypeOfBlender),TimeOfLoading);
 driver.findElement(By.linkText('Блендер BRAUN MQ535 SAUCE')).click();
 driver.wait(until.titleContains("Блендер BRAUN"), TimeOfLoading);
 
+// 3.5 View information about the blender
 driver.wait(until.titleIs(TitleOneBlender), TimeOfLoading);
 verifyValue('detail-title', 'Блендер BRAUN MQ535 SAUCE', 'The required goods have been found');
 verifyValue('detail-description', 'Тип: погружной. Мощность: 600 Вт. Кол-во скоростей: 2. Мини-измельчитель: есть.'+
     'Колка льда: нет. Материал ножки блендера: металл. Цвет: белый/серый.', 'The description of goods have been found.');
 
+// 4 Buy the blender
 driver.findElement(By.name('topurchases')).click();
 waitForElement('cart-title');
 verifyValue('cart-title', 'Вы добавили товар в корзину', 'The goods added to cart successfully.');
 scrollUp();
 driver.findElement(By.className('popup-close-icon')).click();
 
+// 5 View the blender in the cart
 verifyValue('hub-i-count', '1', 'The amount of goods have been shown in the cart.');
 driver.findElement(By.className('hub-i-cart-link-count')).click();
 waitForElement('cart-title');
@@ -72,6 +77,7 @@ verifyValue('cart-i-title-link', 'Блендер BRAUN MQ535 SAUCE', 'The goods 
 scrollUp();
 driver.findElement(By.className('popup-close-icon')).click();
 
+// 6 Delete the blender from cart
 verifyValue('hub-i-count', '1', 'The amount of goods have been shown after reopen twice in the cart.');
 driver.findElement(By.className('sprite-side novisited hub-i-link hub-i-cart-link-count')).click();
 waitForElement('cart-title');
@@ -81,9 +87,11 @@ verifyValue('empty-cart-title', 'Корзина пуста', 'The message have b
 scrollUp();
 driver.findElement(By.className('popup-close-icon')).click();
 
+// 6.6 View information about the empty cart
 driver.findElement(By.className('hub-i-cart-link')).click();
 verifyValue('empty-cart-title', 'Корзина пуста', 'The innformation about empty cart have been shown.');
 scrollUp();
 driver.findElement(By.className('popup-close-icon')).click();
 
+// Quit
 driver.quit();
